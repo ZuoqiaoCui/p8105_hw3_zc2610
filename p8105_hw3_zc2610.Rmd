@@ -40,6 +40,19 @@ acc_df = acc_df %>%
   )
 ```
 
+```{r}
+colnames(acc_df)
+nrow(acc_df)
+ncol(acc_df)
+```
+
+Description
+
+1. The resulting dataset contains following variables: `r colnames(acc_df)`
+
+2. There are totally `r nrow(acc_df)` observations and `r ncol(acc_df)` variables in the resulting dataset
+
+
 
 
 
