@@ -36,8 +36,8 @@ acc_df = acc_df %>%
       day == "Saturday" ~ "weekend",
       day == "Sunday" ~ "weekend",
       TRUE     ~ ""
-    ) 
-  )
+    )
+  ) 
 ```
 
 ```{r}
@@ -51,6 +51,18 @@ Description
 1. The resulting dataset contains following variables: `r colnames(acc_df)`
 
 2. There are totally `r nrow(acc_df)` observations and `r ncol(acc_df)` variables in the resulting dataset
+
+create a variable that sums up counts of activities in each day and show in a table
+```{r}
+acc_df = acc_df %>% 
+  group_by(week,day_id,day) %>% 
+  summarise(
+    total_activity = sum(`counts/minute`)
+  ) %>% 
+  knitr::kable(digits = 1)
+```
+
+
 
 
 
