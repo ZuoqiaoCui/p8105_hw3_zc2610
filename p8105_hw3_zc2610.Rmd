@@ -4,3 +4,25 @@ author: "Zuoqiao Cui"
 date: "2022-10-07"
 output: github_document
 ---
+```{r}
+library(tidyverse)
+```
+
+Import data
+```{r}
+acc_df = read.csv("./data/accel_data.csv") %>% 
+  janitor::clean_names()
+```
+combine all activity columns
+```{r}
+acc_df = acc_df %>% 
+  pivot_longer(
+    activity_1:activity_1440,
+    names_to = "activity",
+    values_to = "counts/minute"
+  )
+```
+
+
+
+
