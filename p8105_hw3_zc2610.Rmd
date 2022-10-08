@@ -81,6 +81,14 @@ load data
 library(p8105.datasets)
 data("ny_noaa")
 ```
+separate date into year, month, day
+```{r}
+ny_noaa = ny_noaa %>% 
+  janitor::clean_names() %>% 
+    separate(date,into = c("year","month","day"),sep = "-")
+ny_noaa
+```
+
 
 
 
