@@ -110,8 +110,10 @@ percentage_of_zero = num_of_zero_snowfall/total_num_of_snowfall
 ```
 Answer:
 
-1. The percentage of NA value in snowfall column is `r sum(is.na(ny_noaa$snow))/(nrow(ny_noaa))` and the percentage of 0 value in snowfall column is `r nrow(filter(ny_noaa,snow == 0))/(nrow(ny_noaa))`.
-2. Since the percentage of 0 value in snowfall column is `r nrow(filter(ny_noaa,snow == 0))/(nrow(ny_noaa))` > 0.5, which means more than half of the value for snowfall is 0. Therefore, the most commonly observed values for snowfall is 0.
+The percentage of NA value in snowfall column is `r sum(is.na(ny_noaa$snow))/(nrow(ny_noaa))` and the percentage of 0 value in snowfall column is `r nrow(filter(ny_noaa,snow == 0))/(nrow(ny_noaa))`.
+
+Since the percentage of 0 value in snowfall column is `r nrow(filter(ny_noaa,snow == 0))/(nrow(ny_noaa))` > 0.5, which means more than half of the value for snowfall is 0. Therefore, the most commonly observed values for snowfall is 0.
+
 
 
 
