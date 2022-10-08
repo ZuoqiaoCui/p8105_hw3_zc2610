@@ -13,7 +13,7 @@ Import data
 acc_df = read.csv("./data/accel_data.csv") %>% 
   janitor::clean_names()
 ```
-combine all activity columns
+Combine all activity columns
 ```{r}
 acc_df = acc_df %>% 
   pivot_longer(
@@ -23,7 +23,7 @@ acc_df = acc_df %>%
     names_prefix = "activity_"
   )
 ```
-create a weekday vs weekend variable
+Create a weekday vs weekend variable
 ```{r}
 acc_df = acc_df %>% 
   mutate(
@@ -52,7 +52,7 @@ Description
 
 2. There are totally `r nrow(acc_df)` observations and `r ncol(acc_df)` variables in the resulting dataset
 
-create a variable that sums up counts of activities in each day and show in a table
+Create a variable that sums up counts of activities in each day and show in a table
 ```{r}
 acc_df %>% 
   group_by(week,day_id,day) %>% 
@@ -62,7 +62,7 @@ acc_df %>%
   knitr::kable(digits = 1)
 ```
 
-single panel plot that shows the 24-hour activity time courses for each day
+Single panel plot that shows the 24-hour activity time courses for each day
 
 ```{r}
 acc_df %>% 
@@ -76,18 +76,43 @@ acc_df %>%
 ```
 
 ## Problem 3
-load data
+Load data
 ```{r}
 library(p8105.datasets)
 data("ny_noaa")
 ```
-separate date into year, month, day
+Clean data
+1. Separate date into year, month, day
 ```{r}
 ny_noaa = ny_noaa %>% 
   janitor::clean_names() %>% 
     separate(date,into = c("year","month","day"),sep = "-")
 ny_noaa
 ```
+2. Ensure observations for temperature, precipitation, and snowfall are given in reasonable units.
+Since temperature's unit is tenths of degrees and precipitation's unit is tenths of mm, I change the temperature's unit to degrees and the precipitation's unit to mm
+
+```{r}
+ny_noaa = ny_noaa %>% 
+  mutate(
+    prcp = prcp/10,
+    tmax = as.double(tmax)/10,
+    tmin = as.double(tmin)/10
+  )
+```
+3. Find the most commonly observed values for snowfall
+```{r}
+total_num_of_snowfall = (nrow(ny_noaa))
+num_of_na_snowfall = sum(is.na(ny_noaa$snow))
+percentage_of_na = num_of_na_snowfall/total_num_of_snowfall
+num_of_zero_snowfall = nrow(filter(ny_noaa,snow == 0))
+percentage_of_zero = num_of_zero_snowfall/total_num_of_snowfall
+```
+Answer:
+
+1. The percentage of NA value in snowfall column is `r sum(is.na(ny_noaa$snow))/(nrow(ny_noaa))` and the percentage of 0 value in snowfall column is `r nrow(filter(ny_noaa,snow == 0))/(nrow(ny_noaa))`.
+2. Since the percentage of 0 value in snowfall column is `r nrow(filter(ny_noaa,snow == 0))/(nrow(ny_noaa))` > 0.5, which means more than half of the value for snowfall is 0. Therefore, the most commonly observed values for snowfall is 0.
+
 
 
 
