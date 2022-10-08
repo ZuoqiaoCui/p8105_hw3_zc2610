@@ -114,6 +114,25 @@ The percentage of NA value in snowfall column is `r sum(is.na(ny_noaa$snow))/(nr
 
 Since the percentage of 0 value in snowfall column is `r nrow(filter(ny_noaa,snow == 0))/(nrow(ny_noaa))` > 0.5, which means more than half of the value for snowfall is 0. Therefore, the most commonly observed values for snowfall is 0.
 
+Change month numbera to month name
+```{r}
+ny_noaa = ny_noaa %>% 
+  mutate(
+     month = recode(month, "01" = "January",
+                  "02" = "February",
+                  "03" = "March",
+                  "04" = "April",
+                  "05" = "May",
+                  "06" = "June",
+                  "07" = "July",
+                  "08" = "Augest",
+                  "09" = "September",
+                  "10" = "October",
+                  "11" = "November", 
+                  "12" = "December"
+                  )
+     )
+```
 
 
 
