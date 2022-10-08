@@ -67,7 +67,12 @@ single panel plot that shows the 24-hour activity time courses for each day
 ```{r}
 acc_df %>% 
    ggplot(aes(x = activity_minute,y = counts,color = day)) +
-   geom_point() 
+   geom_point() +
+   labs(
+    title = "24-Hour Activity Time Courses For Each Day",
+    x = "Time(minute)",
+    y = "Activity Counts"
+  )
 ```
 
 
