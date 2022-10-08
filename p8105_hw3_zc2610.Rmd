@@ -75,6 +75,15 @@ acc_df %>%
   )
 ```
 
+## Problem 3
+load data
+```{r}
+library(p8105.datasets)
+data("ny_noaa")
+```
+
+
+
 
 
 
