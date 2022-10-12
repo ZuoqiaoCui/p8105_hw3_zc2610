@@ -3,6 +3,8 @@ title: "p8105_hw3_zc2610"
 author: "Zuoqiao Cui"
 date: "2022-10-07"
 output: github_document
+editor_options: 
+  chunk_output_type: inline
 ---
 ```{r}
 library(tidyverse)
@@ -52,7 +54,7 @@ Description
 
 2. There are totally `r nrow(acc_df)` observations and `r ncol(acc_df)` variables in the resulting dataset
 
-Create a variable that sums up counts of activities in each day and show in a table
+create a variable that sums up counts of activities in each day and show in a table
 ```{r}
 acc_df %>% 
   group_by(week,day_id,day) %>% 
@@ -62,7 +64,7 @@ acc_df %>%
   knitr::kable(digits = 1)
 ```
 
-Single panel plot that shows the 24-hour activity time courses for each day
+single panel plot that shows the 24-hour activity time courses for each day
 
 ```{r}
 acc_df %>% 
@@ -81,24 +83,24 @@ Load data
 library(p8105.datasets)
 data("ny_noaa")
 ```
-Clean data
-1. Separate date into year, month, day
+Tidy data
+1.Separate date into year, month, day
 ```{r}
 ny_noaa = ny_noaa %>% 
   janitor::clean_names() %>% 
     separate(date,into = c("year","month","day"),sep = "-")
-ny_noaa
 ```
-2. Ensure observations for temperature, precipitation, and snowfall are given in reasonable units.
-Since temperature's unit is tenths of degrees and precipitation's unit is tenths of mm, I change the temperature's unit to degrees and the precipitation's unit to mm
+2. To ensure observations for temperature, precipitation, and snowfall are given in reasonable units
+since the observation for precipitation uses tenths of mm as its unit, we can change it to mm unit. The unit of temperature also needs to be changed from tenths of degrees to degrees
 
 ```{r}
 ny_noaa = ny_noaa %>% 
   mutate(
     prcp = prcp/10,
-    tmax = as.double(tmax)/10,
-    tmin = as.double(tmin)/10
+    tmax = as.numeric(tmax)/10,
+    tmin = as.numeric(tmin)/10
   )
+ny_noaa
 ```
 3. Find the most commonly observed values for snowfall
 ```{r}
@@ -114,7 +116,7 @@ The percentage of NA value in snowfall column is `r sum(is.na(ny_noaa$snow))/(nr
 
 Since the percentage of 0 value in snowfall column is `r nrow(filter(ny_noaa,snow == 0))/(nrow(ny_noaa))` > 0.5, which means more than half of the value for snowfall is 0. Therefore, the most commonly observed values for snowfall is 0.
 
-Change month numbera to month name
+Change month number to month name
 ```{r}
 ny_noaa = ny_noaa %>% 
   mutate(
@@ -133,6 +135,35 @@ ny_noaa = ny_noaa %>%
                   )
      )
 ```
+
+(ii) Make a plot show the distribution of snowfall values greater than 0 and less than 100 separated by year
+```{r}
+ny_noaa %>% 
+  group_by(year) %>% 
+  filter(snow > 0 & snow < 100) %>% 
+    summarize(
+      snowfall_value = sum(snow, na.rm = TRUE)
+      ) %>% 
+  ggplot(aes(x = year, y = snowfall_value)) + 
+  geom_point() +
+  labs(
+    title = "Snowfall Value Plot",
+    x = "Year",
+    y = "Snowfall Value",
+    caption = "Data from NY NOAA"
+  ) +
+   theme(plot.title = element_text(hjust = 0.5)) 
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
