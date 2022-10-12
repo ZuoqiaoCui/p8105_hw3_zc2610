@@ -8,6 +8,8 @@ editor_options:
 ---
 ```{r}
 library(tidyverse)
+library(ggplot2)
+library(patchwork)
 ```
 ## Problem 2
 Import data
@@ -153,14 +155,29 @@ ny_noaa %>%
     y = "Average Max Temperature",
     caption = "Data from NY NOAA"
   ) +
-   theme(plot.title = element_text(hjust = 0.5)) 
+   theme(plot.title = element_text(hjust = 0.5)) +
+  facet_grid(~month)
 ```
+(i) Make a plot show tmax vs tmin 
 
+```{r}
+tmax_tmin_df = ny_noaa %>% 
+ggplot(aes(x = tmax, y = tmin)) + 
+  geom_hex() +
+  labs(
+    x = "Max temperature",
+    y = "Min temperature", 
+    title = "tmax vs tmin for the full dataset",
+    caption = "Data from NY NOAA"
+    ) +
+   theme(plot.title = element_text(hjust = 0.5)) 
+tmax_tmin_df
+```
 
 (ii) Make a plot show the distribution of snowfall values greater than 0 and less than 100 separated by year
 
 ```{r}
-ny_noaa %>% 
+snowfall_df = ny_noaa %>% 
   group_by(year) %>% 
   filter(snow > 0 & snow < 100) %>% 
     summarize(
@@ -174,11 +191,15 @@ ny_noaa %>%
     y = "Snowfall Value",
     caption = "Data from NY NOAA"
   ) +
-   theme(plot.title = element_text(hjust = 0.5)) 
+   theme(plot.title = element_text(hjust = 0.5))
+snowfall_df
 ```
 
+Use patchwork to combine two plots above together
 
-
+```{r}
+tmax_tmin_df+snowfall_df
+```
 
 
 
