@@ -66,7 +66,7 @@ acc_df %>%
   knitr::kable(digits = 1)
 ```
 
-single panel plot that shows the 24-hour activity time courses for each day
+Single panel plot that shows the 24-hour activity time courses for each day
 
 ```{r}
 acc_df %>% 
@@ -76,7 +76,8 @@ acc_df %>%
     title = "24-Hour Activity Time Courses For Each Day",
     x = "Time(minute)",
     y = "Activity Counts"
-  )
+  ) +
+   theme(plot.title = element_text(hjust = 0.5))
 ```
 
 ## Problem 3
@@ -162,11 +163,11 @@ ny_noaa %>%
 
 ```{r}
 tmax_tmin_df = ny_noaa %>% 
-ggplot(aes(x = tmax, y = tmin)) + 
+ggplot(aes(x = tmin, y = tmax)) + 
   geom_hex() +
   labs(
-    x = "Max temperature",
-    y = "Min temperature", 
+    x = "Min temperature",
+    y = "Max temperature", 
     title = "tmax vs tmin for the full dataset",
     caption = "Data from NY NOAA"
     ) +
@@ -178,13 +179,12 @@ tmax_tmin_df
 
 ```{r}
 snowfall_df = ny_noaa %>% 
-  group_by(year) %>% 
+  mutate(
+    year = factor(year)
+  ) %>% 
   filter(snow > 0 & snow < 100) %>% 
-    summarize(
-      snowfall_value = sum(snow, na.rm = TRUE)
-      ) %>% 
-  ggplot(aes(x = year, y = snowfall_value)) + 
-  geom_point() +
+  ggplot(aes(x = year, y = snow)) + 
+  geom_boxplot() +
   labs(
     title = "Snowfall Value Plot",
     x = "Year",
