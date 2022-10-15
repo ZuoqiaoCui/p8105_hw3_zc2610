@@ -131,6 +131,7 @@ acc_df %>%
     total_activity = sum(`counts`)
   ) %>% 
   knitr::kable(digits = 1)
+acc_df
 ```
 
 Single panel plot that shows the 24-hour activity time courses for each day
@@ -142,12 +143,17 @@ acc_df %>%
    labs(
     title = "24-Hour Activity Time Courses For Each Day",
     x = "Time(minute)",
-    y = "Activity Counts"
+    y = "Activity Counts",
+    caption = "Data from accel_data"
   ) +
    theme(plot.title = element_text(hjust = 0.5))
 # put the title in the center
 acc_df
 ```
+Answer:
+
+1. Tuesday,Wednesday and Friday have lower activity counts compared to other days, which means these three days have more stable activity counts. (especially Wednesday)
+2. Compared to other minutes, activity counts are higher at around the 1250th minute, which means everyday at around 8 pm, more activity counts are made.
 
 ## Problem 3
 Load data
