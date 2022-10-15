@@ -241,8 +241,14 @@ ny_noaa %>%
     caption = "Data from NY NOAA"
   ) +
    theme(plot.title = element_text(hjust = 0.5)) +
-  facet_grid(~month)
+  facet_grid(~month) 
+# separate this panel into two panel plot by January and July
 ```
+Answer:
+
+1. For January, the average tmax is increasing according to the total trend between year 1980 an 1990. There is an obvious decreasing in around 1994. Then the average tmax decreased a lot between 2003 and 2004. Then tmax increased a lot in 2006. Then it kept decreasing. For July, there are fewer varies compared to January. The average tmax is stable in total. In around 1986, 1992,2000 and 2009, the average tmax has an obvious decreasing and there is an obvious increasing in 2010.
+2. For the panel, we can see that both January and July have several outliers. For instance, between 1980 and 1985, there is an obvious outlier of tmax in January and one of the 2005 year's average tmaxs is also an outlier. As for July, between 1985 and 1990, there is also an outlier of tmax.
+
 (i) Make a plot show tmax vs tmin 
 
 ```{r}
@@ -260,6 +266,8 @@ tmax_tmin_df
 ```
 
 (ii) Make a plot show the distribution of snowfall values greater than 0 and less than 100 separated by year
+
+For distribution, we always use density but in this problem, we need to show the distribution for each year. Therefore, I think it is better to choose boxplot so that distributions can be separated by each year and it is also helpful for me to find out the outliers in each year
 
 ```{r}
 snowfall_df = ny_noaa %>% 
