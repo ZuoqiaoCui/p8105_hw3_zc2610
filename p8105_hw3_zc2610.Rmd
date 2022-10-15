@@ -130,9 +130,15 @@ acc_df %>%
   summarise(
     total_activity = sum(`counts`)
   ) %>% 
+  arrange(desc(total_activity)) %>% 
   knitr::kable(digits = 1)
-acc_df
 ```
+Answer:
+
+1. For week 1, the highest total activity counts appear on Sunday. For week 2,the highest total activity counts appear on Saturday. For week 3,the highest total activity counts appear on Monday.For week 4,the highest total activity counts appear on Wednesday. For week 5,the highest total activity counts appear on Friday.Therefore, from the perspective of the highest total activity counts, there is no apparent trend to follow.
+2. The order of total activity counts for the 1st week is Friday > Thursday > Wednesday > Monday > Tuesday > Sunday > Saturday. The order of total activity counts for the 2nd week is Wednesday > Monday > Thursday > Tuesday > Sunday > Friday > Saturday. The order of total activity counts for the 3rd week is Monday > Wednesday > Friday > Sunday > Saturday > Tuesday > Thursday.The order of total activity counts for the 4th week is Saturday > Friday >  Thursday > Wednesday > Tuesday > Sunday >  Monday.The order of total activity counts for the 5th week is Sunday > Friday > Saturday > Thursday > Wednesday > Tuesday > Monday. There is still no apparent trend for order.
+3. There are some abnormal data on week 1 Monday, week 4 and week 5 Monday since the total activity counts are too low compared to other days. 
+
 
 Single panel plot that shows the 24-hour activity time courses for each day
 
