@@ -297,6 +297,15 @@ Use patchwork to combine two plots above together
 tmax_tmin_df + snowfall_df
 ```
 
+Description
+
+1. The dataset contains following variables: `r colnames(ny_noaa)`
+
+2. There are totally `r nrow(ny_noaa)` observations and `r ncol(ny_noaa)` variables in the resulting dataset
+
+3. Key variables should contain year, month, tmax, tmin, prcp and snow since we want to analysis the snowfall and precipitation distribution in different year as well as month and the changes of tmax and tmin.
+
+
 
 
 
