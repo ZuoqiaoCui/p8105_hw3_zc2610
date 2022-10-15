@@ -130,7 +130,8 @@ acc_df %>%
   summarise(
     total_activity = sum(`counts`)
   ) %>% 
-  arrange(desc(total_activity)) %>% 
+  arrange(week,desc(total_activity)) %>% 
+  # order the total activity counts for each week
   knitr::kable(digits = 1)
 ```
 Answer:
