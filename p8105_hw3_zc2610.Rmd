@@ -176,7 +176,7 @@ ny_noaa = ny_noaa %>%
     separate(date,into = c("year","month","day"),sep = "-")
 ```
 2. To ensure observations for temperature, precipitation, and snowfall are given in reasonable units
-since the observation for precipitation uses tenths of mm as its unit, we can change it to mm unit. The unit of temperature also needs to be changed from tenths of degrees to degrees
+since the observation for precipitation uses tenths of mm as its unit, we can change it to mm unit. The unit of temperature also needs to be changed from tenths of degrees C to degrees C
 
 ```{r}
 ny_noaa = ny_noaa %>% 
@@ -193,6 +193,7 @@ ny_noaa
 ```{r}
 total_num_of_snowfall = (nrow(ny_noaa))
 num_of_na_snowfall = sum(is.na(ny_noaa$snow))
+# calculate the number of NA in snow column
 percentage_of_na = num_of_na_snowfall/total_num_of_snowfall
 num_of_zero_snowfall = nrow(filter(ny_noaa,snow == 0))
 percentage_of_zero = num_of_zero_snowfall/total_num_of_snowfall
@@ -249,7 +250,7 @@ Answer:
 1. For January, the average tmax is increasing according to the total trend between year 1980 an 1990. There is an obvious decreasing in around 1994. Then the average tmax decreased a lot between 2003 and 2004. Then tmax increased a lot in 2006. Then it kept decreasing. For July, there are fewer varies compared to January. The average tmax is stable in total. In around 1986, 1992,2000 and 2009, the average tmax has an obvious decreasing and there is an obvious increasing in 2010.
 2. For the panel, we can see that both January and July have several outliers. For instance, between 1980 and 1985, there is an obvious outlier of tmax in January and one of the 2005 year's average tmaxs is also an outlier. As for July, between 1985 and 1990, there is also an outlier of tmax.
 
-(i) Make a plot show tmax vs tmin 
+(i) Make a plot show tmax vs tmin (tmax should be the vertical axis and tmin should be the horizontal axis)
 
 ```{r}
 tmax_tmin_df = ny_noaa %>% 
@@ -290,7 +291,7 @@ snowfall_df
 Use patchwork to combine two plots above together
 
 ```{r}
-tmax_tmin_df+snowfall_df
+tmax_tmin_df + snowfall_df
 ```
 
 
