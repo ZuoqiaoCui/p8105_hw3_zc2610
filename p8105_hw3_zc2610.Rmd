@@ -28,7 +28,7 @@ aisle_df = instacart %>%
   arrange(desc(n)) %>% 
   filter(n > 10000) %>% 
   mutate(aisle = fct_reorder(aisle, n)) %>% 
-  #order te aisle according to the number of items ordered in each aisle
+  #order the aisle according to the number of items ordered in each aisle
   ggplot(aes(x = aisle,y = n)) +
   geom_point() +
   labs(
@@ -43,9 +43,22 @@ aisle_df
 ```
 Answer: 
 
-1.There are `r  nrow (aisle_df)` aisles
+1.There are `r nrow (instacart %>% count(aisle))` aisles
 
 2.Fresh vegetables are the most items ordered from
+
+Make a table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”. Include the number of times each item is ordered in your table.
+```{r}
+instacart %>% 
+  filter(aisle == "baking ingredients" | aisle == "dog food care" | aisle == "packaged vegetables fruits") %>% 
+  group_by(aisle) %>% 
+  count(product_name) %>% 
+  # number of times to be ordered
+  mutate(rank = min_rank(desc(n))) %>% 
+  # order by the number of times to be ordered
+  filter(rank < 4)
+# find out the top 3 popular product and the number of being ordered
+```
 
 
 ## Problem 2
@@ -66,7 +79,6 @@ acc_df = acc_df %>%
   mutate(
     activity_minute = as.integer(activity_minute)
   )
-acc_df
 ```
 Create a weekday vs weekend variable
 ```{r}
