@@ -61,8 +61,12 @@ acc_df = acc_df %>%
     activity_1:activity_1440,
     names_to = "activity_minute",
     values_to = "counts",
-    names_prefix = "activity_"
+    names_prefix = "activity_",
+  ) %>% 
+  mutate(
+    activity_minute = as.integer(activity_minute)
   )
+acc_df
 ```
 Create a weekday vs weekend variable
 ```{r}
@@ -115,6 +119,7 @@ acc_df %>%
     y = "Activity Counts"
   ) +
    theme(plot.title = element_text(hjust = 0.5))
+acc_df
 ```
 
 ## Problem 3
