@@ -18,6 +18,17 @@ library(patchwork)
 library(p8105.datasets)
 data("instacart")
 ```
+Count the number of aisle and order the number from large to small
+```{r}
+aisle_df = instacart %>% 
+  count(aisle) %>% 
+  arrange(desc(n))
+```
+Answer: 
+
+1.There are `r  nrow (aisle_df)` aisles
+
+2.Fresh vegetables are the most items ordered from
 
 ## Problem 2
 Import data
