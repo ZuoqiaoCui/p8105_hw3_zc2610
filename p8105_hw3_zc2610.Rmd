@@ -4,7 +4,7 @@ author: "Zuoqiao Cui"
 date: "2022-10-07"
 output: github_document
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 ```{r}
 library(tidyverse)
@@ -47,6 +47,7 @@ Answer:
 
 2.Fresh vegetables are the most items ordered from
 
+
 Make a table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”. Include the number of times each item is ordered in your table.
 ```{r}
 instacart %>% 
@@ -56,8 +57,21 @@ instacart %>%
   # number of times to be ordered
   mutate(rank = min_rank(desc(n))) %>% 
   # order by the number of times to be ordered
-  filter(rank < 4)
+  filter(rank < 4) %>% 
+  arrange(desc(n)) %>% 
+  knitr::kable()
 # find out the top 3 popular product and the number of being ordered
+```
+
+Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers
+```{r}
+instacart %>% 
+  filter(product_name == "Pink Lady Apples" | product_name == "Coffee Ice Cream") %>% 
+  group_by(product_name,order_dow) %>% 
+  summarize(mean_hour = mean(order_hour_of_day)) %>% 
+  spread(key = order_dow, value = mean_hour) %>% 
+#change the data frame from longer to wider
+  knitr::kable(digits = 1)
 ```
 
 
@@ -131,6 +145,7 @@ acc_df %>%
     y = "Activity Counts"
   ) +
    theme(plot.title = element_text(hjust = 0.5))
+# put the title in the center
 acc_df
 ```
 
@@ -154,8 +169,10 @@ since the observation for precipitation uses tenths of mm as its unit, we can ch
 ny_noaa = ny_noaa %>% 
   mutate(
     prcp = prcp/10,
+    # change the unit of precipitation from tenths of mm to mm for later calculation
     tmax = as.numeric(tmax)/10,
     tmin = as.numeric(tmin)/10
+    # change the unit of minimum and maximum temperature from tenths of degrees C to degrees C for later calculation
   )
 ny_noaa
 ```
