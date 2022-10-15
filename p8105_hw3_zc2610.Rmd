@@ -45,8 +45,11 @@ Answer:
 
 1.There are `r nrow (instacart %>% count(aisle))` aisles
 
-2.Fresh vegetables are the most items ordered from
+2.Fresh vegetables are the most items ordered from instacart
 
+3.Description of this dataset:
+
+This dataset contains `r nrow(instacart)` rows and `r ncol(instacart)` columns, with each row respresenting a single product from an instacart order. Variables include `r colnames(instacart)`. Variables can be divided in to three groups: identifiers, order and item. Identifier variables contain identifiers for user, order, and product. Order variables contain order-related variables like describing the day and time of the order, and number of days since prior order. Item variables include variables related to describing the product name (e.g. Yogurt, Avocado), department (e.g. dairy and eggs, produce), and aisle (e.g. yogurt, fresh fruits), and whether the item has been ordered by this user in the past.In total, there are `r instacart %>% select(product_id) %>% distinct %>% count` products found in `r instacart %>% select(user_id, order_id) %>% distinct %>% count` orders from `r instacart %>% select(user_id) %>% distinct %>% count` distinct users.
 
 Make a table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”. Include the number of times each item is ordered in your table.
 ```{r}
